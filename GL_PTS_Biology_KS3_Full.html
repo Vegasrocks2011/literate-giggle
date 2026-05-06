@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL PTS Biology — KS3</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0B2617;
+  --forest-mid:#122D1C;
+  --forest-lite:#1A3D27;
+  --forest-card:#1E3D2A;
+  --green:#22C55E;
+  --green-dark:#16A34A;
+  --green-glow:rgba(34,197,94,.14);
+  --green-glow2:rgba(34,197,94,.07);
+  --lime:#84CC16;
+  --lime-bg:rgba(132,204,22,.1);
+  --red:#F43F5E;
+  --red-bg:rgba(244,63,94,.1);
+  --amber:#F59E0B;
+  --amber-bg:rgba(245,158,11,.1);
+  --sky:#38BDF8;
+  --sky-bg:rgba(56,189,248,.1);
+  --purple:#A78BFA;
+  --purple-bg:rgba(167,139,250,.1);
+  --text:#E2F0E8;
+  --text-mid:#86A894;
+  --text-dim:#4A6654;
+  --border:rgba(255,255,255,.07);
+  --border-hi:rgba(34,197,94,.3);
+  --radius:14px;
+  --radius-sm:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--forest);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--forest)}
+::-webkit-scrollbar-thumb{background:var(--forest-lite);border-radius:2px}
+
+/* ── HEADER ── */
+.header{
+  background:linear-gradient(160deg,#0A1F13,var(--forest-mid));
+  border-bottom:1px solid var(--border);
+  padding:20px 28px 0;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px);
+}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:13px}
+.logo-icon{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;box-shadow:0 0 24px var(--green-glow);
+}
+.logo-text h1{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.logo-text p{font-size:11px;color:var(--text-mid);margin-top:2px}
+.header-meta{
+  font-size:11px;font-family:'IBM Plex Mono',monospace;
+  color:var(--green);background:var(--green-glow);
+  border:1px solid var(--border-hi);
+  padding:6px 14px;border-radius:20px;
+}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding-bottom:0}
+.tabs::-webkit-scrollbar{height:0}
+.tab{
+  padding:11px 18px;font-size:12px;font-weight:600;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  border:none;cursor:pointer;border-radius:10px 10px 0 0;
+  background:transparent;color:var(--text-dim);
+  transition:all .18s;white-space:nowrap;
+  display:flex;align-items:center;gap:7px;
+}
+.tab:hover{color:var(--text-mid);background:rgba(255,255,255,.04)}
+.tab.active{background:var(--forest);color:var(--green);border-top:2px solid var(--green)}
+.tab-num{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  background:var(--forest-lite);color:var(--text-dim);
+  padding:1px 7px;border-radius:10px;
+}
+.tab.active .tab-num{background:var(--green-glow);color:var(--green)}
+
+/* ── LAYOUT ── */
+.shell{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+.pane{display:none}
+.pane.active{display:block}
+.section-lbl{
+  font-size:11px;font-weight:700;color:var(--green);
+  text-transform:uppercase;letter-spacing:.07em;
+  font-family:'IBM Plex Mono',monospace;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── KNOWLEDGE ── */
+.topic-block{margin-bottom:34px}
+.topic-hdr{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:14px;padding:14px 18px;
+  background:var(--forest-card);
+  border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  border-radius:var(--radius);
+}
+.topic-icon{font-size:24px;flex-shrink:0}
+.topic-hdr-text h3{font-size:15px;font-weight:600;color:var(--text)}
+.topic-hdr-text p{font-size:12px;color:var(--text-mid);margin-top:3px;line-height:1.5}
+.know-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.know-card{
+  background:var(--forest-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px 16px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.know-card:hover{border-color:var(--border-hi);box-shadow:0 0 18px var(--green-glow)}
+.kc-tag{
+  display:inline-block;font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;
+  padding:2px 8px;border-radius:10px;margin-bottom:8px;
+  font-family:'IBM Plex Mono',monospace;
+}
+.tag-must{background:rgba(244,63,94,.2);color:#F43F5E}
+.tag-should{background:rgba(245,158,11,.2);color:#F59E0B}
+.tag-could{background:rgba(167,139,250,.2);color:#A78BFA}
+.kc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.4}
+.kc-body{font-size:12px;color:var(--text-mid);line-height:1.65}
+.kc-body ul{padding-left:14px;margin-top:4px}
+.kc-body li{margin-bottom:3px}
+.formula{
+  font-family:'IBM Plex Mono',monospace;
+  background:var(--forest-lite);color:var(--green);
+  padding:2px 7px;border-radius:5px;font-size:11px;
+  display:inline-block;margin:2px 2px;
+}
+
+/* ── CHECKLIST ── */
+.summary-intro{
+  background:var(--forest-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px 24px;margin-bottom:22px;
+}
+.summary-intro h2{font-size:16px;font-weight:700;color:var(--green);margin-bottom:8px}
+.summary-intro p{font-size:13px;color:var(--text-mid);line-height:1.65}
+.cl-progress{
+  background:var(--forest-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 22px;margin-bottom:22px;
+  display:flex;gap:20px;align-items:center;flex-wrap:wrap;
+}
+.cl-stat{text-align:center}
+.cl-val{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--green)}
+.cl-lbl{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.cl-bar-wrap{flex:1}
+.cl-bar-label{font-size:11px;color:var(--text-mid);margin-bottom:6px;display:flex;justify-content:space-between}
+.cl-track{height:8px;background:var(--forest-lite);border-radius:4px;overflow:hidden}
+.cl-fill{height:100%;background:var(--green);border-radius:4px;transition:width .4s}
+.cl-group{margin-bottom:22px}
+.cl-topic-hdr{
+  font-size:12px;font-weight:700;color:var(--green);
+  padding:10px 16px;
+  background:var(--green-glow);border:1px solid var(--border-hi);
+  border-radius:var(--radius-sm) var(--radius-sm) 0 0;
+  display:flex;align-items:center;gap:8px;
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;
+}
+.cl-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:11px 16px;
+  background:var(--forest-card);border:1px solid var(--border);border-top:none;
+  cursor:pointer;transition:background .12s;
+}
+.cl-item:last-child{border-radius:0 0 var(--radius-sm) var(--radius-sm)}
+.cl-item:hover{background:var(--forest-lite)}
+.cl-item.ck{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.2)}
+.cl-box{
+  width:18px;height:18px;border:1.5px solid var(--text-dim);
+  border-radius:5px;flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.cl-item.ck .cl-box{background:var(--green);border-color:var(--green)}
+.cl-tick{font-size:11px;color:#fff;display:none}
+.cl-item.ck .cl-tick{display:block}
+.cl-text{font-size:13px;color:var(--text-mid);line-height:1.55;flex:1}
+.cl-item.ck .cl-text{color:var(--text-dim);text-decoration:line-through}
+
+/* ── QUESTIONS ── */
+.q-filter{
+  display:flex;gap:7px;flex-wrap:wrap;padding:14px 0;margin-bottom:18px;
+  border-bottom:1px solid var(--border);align-items:center;
+}
+.qfl{font-size:11px;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.qpill{
+  padding:5px 12px;border:1px solid var(--border);border-radius:20px;
+  font-size:11px;font-weight:600;cursor:pointer;background:transparent;
+  color:var(--text-dim);transition:all .13s;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.qpill:hover{border-color:var(--green);color:var(--green)}
+.qpill.active{background:var(--green);color:#0B2617;border-color:var(--green)}
+.q-prog-badge{
+  margin-left:auto;font-size:11px;font-family:'IBM Plex Mono',monospace;
+  color:var(--green);background:var(--green-glow);
+  padding:4px 12px;border-radius:20px;border:1px solid var(--border-hi);
+}
+.qtopic-grp{margin-bottom:30px}
+.qtopic-hdr{
+  font-size:11px;font-weight:700;color:var(--green);
+  text-transform:uppercase;letter-spacing:.06em;
+  padding:8px 0 8px 12px;border-left:2px solid var(--green);
+  margin-bottom:12px;font-family:'IBM Plex Mono',monospace;
+}
+.q-card{
+  background:var(--forest-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px;margin-bottom:10px;
+  transition:border-color .15s;
+}
+.q-card:hover{border-color:rgba(255,255,255,.12)}
+.q-card.mk-ok{border-left:3px solid var(--green)}
+.q-card.mk-no{border-left:3px solid var(--red)}
+.q-card.mk-sk{border-left:3px solid var(--amber)}
+.q-top{display:flex;align-items:flex-start;gap:12px}
+.q-id{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  color:var(--text-dim);background:var(--forest-lite);
+  padding:3px 8px;border-radius:5px;flex-shrink:0;margin-top:1px;
+}
+.q-body{flex:1}
+.dbadge{
+  display:inline-block;font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+  padding:2px 8px;border-radius:10px;margin-bottom:7px;
+  font-family:'IBM Plex Mono',monospace;
+}
+.df{background:rgba(245,158,11,.15);color:#F59E0B}
+.ds{background:rgba(34,197,94,.12);color:var(--green)}
+.dx{background:rgba(167,139,250,.15);color:#A78BFA}
+.q-text{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:13px;font-weight:400}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 13px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);cursor:pointer;font-size:13px;
+  color:var(--text-mid);background:var(--forest-mid);
+  text-align:left;width:100%;line-height:1.5;
+  font-family:'Plus Jakarta Sans',sans-serif;transition:all .13s;
+}
+.opt:hover{border-color:var(--green);color:var(--text);background:var(--green-glow2)}
+.opt.sel{border-color:var(--green);background:var(--green-glow);color:#A7F3D0}
+.opt.sel .ol{background:var(--green);color:#0B2617}
+.ol{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
+  min-width:20px;height:20px;border-radius:50%;
+  background:var(--forest-lite);color:var(--text-dim);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;transition:all .13s;
+}
+.opt-m{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 13px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);font-size:13px;
+  color:var(--text-dim);background:var(--forest-mid);line-height:1.5;
+}
+.opt-m.mc{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08);color:#A7F3D0}
+.opt-m.mc .ol{background:var(--green);color:#0B2617}
+.opt-m.mw{border-color:rgba(244,63,94,.4);background:var(--red-bg);color:#FCA5A5}
+.opt-m.mw .ol{background:var(--red);color:#fff}
+.osuf{
+  margin-left:auto;font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:8px;flex-shrink:0;align-self:center;
+  font-family:'IBM Plex Mono',monospace;
+}
+.sc{background:var(--green);color:#0B2617}
+.sw{background:var(--red);color:#fff}
+.exp-box{
+  margin-top:10px;padding:10px 14px;
+  background:rgba(34,197,94,.08);border-left:2px solid var(--green);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:12px;color:#A7F3D0;line-height:1.6;
+}
+.exp-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin-bottom:3px;font-family:'IBM Plex Mono',monospace}
+.rev-box{
+  margin-top:6px;padding:8px 12px;
+  background:var(--amber-bg);border-left:2px solid var(--amber);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:12px;color:#FDE68A;line-height:1.5;
+}
+.skip-box{
+  margin-top:10px;padding:9px 13px;
+  background:var(--amber-bg);border-left:2px solid var(--amber);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:12px;color:#FDE68A;
+}
+
+/* ── SCORE ── */
+.score-hero{
+  background:linear-gradient(135deg,var(--forest-mid),var(--forest-lite));
+  border:1px solid var(--border-hi);border-radius:var(--radius);
+  padding:28px;margin-bottom:22px;text-align:center;
+}
+.score-ring{
+  width:120px;height:120px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 16px;border:3px solid var(--green);
+  box-shadow:0 0 40px var(--green-glow);
+}
+.score-pct{font-size:34px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--green)}
+.score-lbl{font-size:11px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em}
+.score-band{display:inline-block;font-size:13px;font-weight:700;padding:6px 18px;border-radius:20px;margin-bottom:12px}
+.score-msg{font-size:13px;color:var(--text-mid);line-height:1.65;max-width:560px;margin:0 auto}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.score-stat{
+  background:var(--forest-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px;text-align:center;
+}
+.ssval{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace}
+.sslbl{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;margin-top:3px}
+.bc-card{background:var(--forest-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:18px}
+.bc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px}
+.rag-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.rag-row:last-child{border-bottom:none}
+.rdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.rg{background:var(--green)}.ra{background:var(--amber)}.rr{background:var(--red)}
+.rname{font-size:13px;color:var(--text);flex:1}
+.rbar{width:80px;height:5px;background:var(--forest-lite);border-radius:3px;overflow:hidden}
+.rbarfill{height:100%;border-radius:3px}
+.rscore{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text-mid)}
+.rev-card{background:var(--red-bg);border:1px solid rgba(244,63,94,.25);border-radius:var(--radius);padding:20px;margin-bottom:18px}
+.rv-title{font-size:14px;font-weight:700;color:var(--red);margin-bottom:12px}
+.rv-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(244,63,94,.15);font-size:13px;color:#FCA5A5;line-height:1.5}
+.rv-item:last-child{border-bottom:none}
+.rv-arr{color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px}
+.pts-card{background:var(--amber-bg);border:1px solid rgba(245,158,11,.25);border-radius:var(--radius);padding:20px;margin-bottom:18px}
+.pts-title{font-size:14px;font-weight:700;color:var(--amber);margin-bottom:12px}
+.pt-item{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(245,158,11,.15);font-size:13px;color:#FDE68A;line-height:1.5}
+.pt-item:last-child{border-bottom:none}
+.pt-bul{width:20px;height:20px;border-radius:50%;background:var(--amber);color:var(--forest);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:'IBM Plex Mono',monospace}
+.btn{padding:10px 22px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.btn-green{background:var(--green);color:#0B2617}
+.btn-green:hover{background:var(--green-dark);box-shadow:0 0 20px var(--green-glow)}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+@media(max-width:580px){
+  .know-grid{grid-template-columns:1fr}
+  .score-grid{grid-template-columns:repeat(2,1fr)}
+  .header{padding:14px 14px 0}
+  .shell{padding:18px 10px 60px}
+  .tab{padding:9px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon">🧬</div>
+      <div class="logo-text">
+        <h1>GL PTS Biology — KS3</h1>
+        <p>Al Yasmina Academy · Year 7–9 · National Curriculum aligned</p>
+      </div>
+    </div>
+    <div class="header-meta" id="prog-badge">0 / 50 answered</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('knowledge',this)">📖 Knowledge <span class="tab-num">8 topics</span></button>
+    <button class="tab" onclick="switchTab('summary',this)">✅ Self Summary <span class="tab-num" id="cl-badge">0%</span></button>
+    <button class="tab" onclick="switchTab('questions',this)">📝 Practice Questions <span class="tab-num">50 Qs</span></button>
+    <button class="tab" onclick="switchTab('marking',this)">🔍 Self Mark <span class="tab-num" id="mk-badge">0</span></button>
+    <button class="tab" onclick="switchTab('score',this)">🏆 Score &amp; Revise <span class="tab-num" id="sc-badge">—</span></button>
+  </div>
+</div>
+
+<div class="shell">
+
+<!-- TAB 1: KNOWLEDGE -->
+<div class="pane active" id="pane-knowledge">
+<div class="section-lbl">KS3 Biology — Core Knowledge</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🔬</div><div class="topic-hdr-text"><h3>Cells and Organisation</h3><p>Cell structure, organelles, diffusion, unicellular organisms, levels of organisation</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Cell organelles and functions</div><div class="kc-body"><ul><li><b>Cell membrane</b> — controls what enters/leaves</li><li><b>Nucleus</b> — contains DNA, controls cell</li><li><b>Cytoplasm</b> — where chemical reactions occur</li><li><b>Mitochondria</b> — site of aerobic respiration (energy release)</li><li><b>Chloroplasts</b> — site of photosynthesis (plant cells only)</li><li><b>Cell wall</b> — support, made of cellulose (plant cells only)</li><li><b>Vacuole</b> — storage, maintains cell shape (plant cells only)</li></ul></div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Plant vs animal cells</div><div class="kc-body">Animal cells have: nucleus, cell membrane, cytoplasm, mitochondria.<br><br>Plant cells have all of the above PLUS: cell wall, chloroplasts, large vacuole.<br><br>Bacterial cells have no nucleus — DNA is free in the cytoplasm.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Levels of organisation</div><div class="kc-body">Cell → Tissue → Organ → Organ system → Organism. Each level is made of the level below working together. Example: muscle cells → muscle tissue → heart → circulatory system → human.</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Diffusion</div><div class="kc-body">Diffusion is the net movement of particles from a region of high concentration to low concentration — down a concentration gradient. It is passive (requires no energy). Important in gas exchange (O₂ and CO₂) and nutrient absorption.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🦴</div><div class="topic-hdr-text"><h3>Skeletal and Muscular Systems</h3><p>Functions of the skeleton, antagonistic muscles, biomechanics</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Functions of the skeleton</div><div class="kc-body"><ul><li><b>Support</b> — gives the body shape and holds organs in place</li><li><b>Protection</b> — skull protects brain; ribcage protects heart and lungs</li><li><b>Movement</b> — bones act as levers for muscles to act on</li><li><b>Blood cell production</b> — red bone marrow makes red blood cells</li></ul></div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Antagonistic muscles</div><div class="kc-body">Muscles can only pull, not push. They work in antagonistic pairs — when one contracts, the other relaxes. Example: <b>bicep</b> contracts → arm bends (flexion). <b>Tricep</b> contracts → arm straightens (extension). Tendons attach muscle to bone. Ligaments attach bone to bone.</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Joints</div><div class="kc-body">Joints allow movement between bones. Synovial joints (e.g. knee, elbow) contain synovial fluid to reduce friction. Cartilage covers bone ends and acts as a shock absorber. Different joint types allow different ranges of movement.</div></div>
+    <div class="know-card"><span class="kc-tag tag-could">Stretch</span><div class="kc-title">Biomechanics</div><div class="kc-body">The skeleton acts as a system of levers. The effort (from muscles), load (weight being moved) and fulcrum (pivot/joint) determine the mechanical advantage. Measuring force exerted by muscles uses spring balances or force sensors.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🍎</div><div class="topic-hdr-text"><h3>Nutrition and Digestion</h3><p>Healthy diet, digestive system, enzymes, deficiency diseases</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Food groups and their roles</div><div class="kc-body"><ul><li><b>Carbohydrates</b> — energy source</li><li><b>Lipids (fats/oils)</b> — energy store, insulation, cell membranes</li><li><b>Proteins</b> — growth and repair</li><li><b>Vitamins</b> — e.g. Vit C (scurvy prevention), Vit D (bone health)</li><li><b>Minerals</b> — e.g. iron (haemoglobin), calcium (bones)</li><li><b>Fibre</b> — aids gut movement</li><li><b>Water</b> — chemical reactions, transport</li></ul></div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">The digestive system</div><div class="kc-body">Mouth → oesophagus → stomach → small intestine → large intestine → rectum → anus. Enzymes are biological catalysts that speed up digestion. Amylase breaks down starch. Protease breaks down protein. Lipase breaks down fat. Villi in the small intestine absorb nutrients into the blood.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Diet imbalances</div><div class="kc-body"><ul><li><b>Obesity</b> — excess energy intake stored as fat; risk of diabetes, heart disease</li><li><b>Starvation</b> — insufficient food; muscle wasting, organ failure</li><li><b>Scurvy</b> — vitamin C deficiency</li><li><b>Rickets</b> — vitamin D / calcium deficiency</li><li><b>Anaemia</b> — iron deficiency (fewer red blood cells)</li></ul></div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Bacteria in digestion</div><div class="kc-body">The gut contains billions of beneficial bacteria (gut microbiome). They help break down fibre, produce vitamins (e.g. Vitamin K), and protect against harmful bacteria. Antibiotics can disrupt the gut microbiome.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">💨</div><div class="topic-hdr-text"><h3>Gas Exchange</h3><p>Structure of the lungs, breathing mechanism, stomata, exercise and health</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">The gas exchange system</div><div class="kc-body">Air passes through: nose/mouth → trachea → bronchi → bronchioles → alveoli. Alveoli adaptations: large surface area, thin walls (one cell thick), moist lining, rich blood supply. O₂ diffuses into blood; CO₂ diffuses out.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Breathing mechanism</div><div class="kc-body"><b>Inhaling:</b> diaphragm contracts (flattens), intercostal muscles contract, ribcage moves up and out → volume increases → pressure decreases → air rushes in.<br><b>Exhaling:</b> diaphragm relaxes (domes up), ribcage moves in and down → volume decreases → pressure increases → air pushed out.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Impacts on gas exchange</div><div class="kc-body"><ul><li><b>Exercise</b> — increases breathing rate and depth; more O₂ needed for respiration</li><li><b>Asthma</b> — airways narrow, making breathing difficult; treated with inhalers</li><li><b>Smoking</b> — damages cilia, causes tar build-up, destroys alveoli (emphysema), leads to cancer</li></ul></div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Stomata in plants</div><div class="kc-body">Stomata are tiny pores mainly on the underside of leaves, surrounded by guard cells. They open to allow CO₂ in for photosynthesis and O₂ out. They close to reduce water loss (transpiration) in hot/dry conditions.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🌸</div><div class="topic-hdr-text"><h3>Reproduction</h3><p>Human reproduction, plant reproduction, fertilisation, dispersal</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Human reproduction</div><div class="kc-body">Gametes: sperm (male) and egg (female). Fertilisation — fusion of sperm and egg → zygote → embryo → foetus. Gestation (pregnancy) ≈ 40 weeks. The placenta allows nutrients and O₂ to pass to the foetus and CO₂/waste to pass back. Maternal lifestyle (smoking, alcohol, drugs) affects foetal development.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">The menstrual cycle</div><div class="kc-body">A monthly cycle (approximately 28 days) that prepares the uterus for pregnancy. Days 1–5: menstruation (uterus lining sheds). Days 6–13: lining rebuilds. Day 14: ovulation (egg released). Days 15–28: if unfertilised, lining breaks down again.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Plant reproduction</div><div class="kc-body">Flower parts: anther (makes pollen), stigma (receives pollen), ovary (contains ovules). Pollination: transfer of pollen from anther to stigma. Wind-pollinated: light pollen, no petals. Insect-pollinated: colourful petals, nectar, sticky pollen. After fertilisation → seed and fruit formation.</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Seed dispersal</div><div class="kc-body">Seeds are dispersed to reduce competition. Methods: wind (maple, dandelion), animal (eaten — berry; carried — burdock), water (coconut), self-dispersal (explosive pods). Wider dispersal = less competition for light, water and nutrients.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">☀️</div><div class="topic-hdr-text"><h3>Photosynthesis and Respiration</h3><p>Word equations, reactants, products, aerobic and anaerobic</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Photosynthesis</div><div class="kc-body"><span class="formula">CO₂ + H₂O → glucose + O₂</span><br>Requires light energy. Occurs in chloroplasts. Leaf adaptations: broad (large surface area), thin (short diffusion distance), chlorophyll (absorbs light), stomata (gas exchange), veins (water and glucose transport).</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Aerobic respiration</div><div class="kc-body"><span class="formula">glucose + O₂ → CO₂ + H₂O + energy</span><br>Occurs in mitochondria. Releases energy for all life processes — movement, growth, warmth. Used continuously by all living cells.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Anaerobic respiration</div><div class="kc-body">In humans (muscles): <span class="formula">glucose → lactic acid + energy</span><br>Occurs when O₂ is insufficient (intense exercise). Lactic acid builds up causing muscle fatigue.<br>In yeast: <span class="formula">glucose → ethanol + CO₂ + energy</span><br>Used in brewing and baking (fermentation).</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Comparing aerobic and anaerobic</div><div class="kc-body"><ul><li>Aerobic: needs O₂, produces CO₂ + water, releases <b>more</b> energy</li><li>Anaerobic: no O₂ needed, produces lactic acid (animals) or ethanol + CO₂ (yeast), releases <b>less</b> energy</li><li>Anaerobic is unsustainable long-term — lactic acid causes pain and fatigue</li></ul></div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🌿</div><div class="topic-hdr-text"><h3>Ecosystems and Interdependence</h3><p>Food webs, interdependence, pollination, toxic accumulation, biodiversity</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Food webs and energy flow</div><div class="kc-body">Producers (plants) → Primary consumers → Secondary consumers → Tertiary consumers. Arrows show the direction of energy flow (from eaten to eater). Removing one species affects all others — interdependence. Energy is lost at each level (as heat and movement).</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Biodiversity</div><div class="kc-body">Biodiversity = variety of species in an ecosystem. High biodiversity → more stable ecosystem (if one species is lost, others can fill its role). Threats: habitat destruction, pollution, invasive species, climate change. Gene banks preserve genetic material of endangered species.</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Insect pollination and food security</div><div class="kc-body">Many crops (fruits, vegetables, nuts) depend on insect pollination. Declining bee populations threaten global food security. Loss of pollinator habitat, pesticide use and disease all contribute. This links ecology directly to human food supply.</div></div>
+    <div class="know-card"><span class="kc-tag tag-could">Stretch</span><div class="kc-title">Bioaccumulation of toxins</div><div class="kc-body">Toxic substances (e.g. mercury, DDT) are not broken down and accumulate in organisms. Concentrations increase at each trophic level (bioaccumulation) — top predators have the highest concentrations. Example: pesticides in insect → small bird → bird of prey.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">🧬</div><div class="topic-hdr-text"><h3>Genetics and Evolution</h3><p>DNA, genes, chromosomes, variation, natural selection, extinction</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">DNA, genes and chromosomes</div><div class="kc-body">DNA is a double helix molecule that carries genetic information. DNA is organised into <b>genes</b> (sections that code for a specific protein/characteristic). Genes are found on <b>chromosomes</b>, which are in the nucleus. Humans have 46 chromosomes (23 pairs). Watson, Crick, Wilkins and Franklin discovered the double helix structure of DNA.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Variation</div><div class="kc-body"><b>Continuous variation</b>: range of values, no distinct categories (e.g. height, mass, hand span). Shown as a bell curve. <b>Discontinuous variation</b>: distinct categories, no intermediate values (e.g. blood group, tongue rolling, sex). Variation is caused by genes, environment, or both.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Natural selection and evolution</div><div class="kc-body">1. Variation exists within a species. 2. More offspring produced than can survive. 3. Those with advantageous traits are more likely to survive and reproduce. 4. These traits are inherited by offspring. Over many generations → species change (evolution). Evidence: fossil record, DNA analysis, observable change.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Extinction</div><div class="kc-body">A species becomes extinct when all individuals die and it cannot reproduce. Causes: environmental change, habitat destruction, disease, predation, competition from invasive species. Climate change is increasingly a driver. Gene banks preserve genetic material to prevent total loss.</div></div>
+  </div>
+</div>
+
+<div class="topic-block">
+  <div class="topic-hdr"><div class="topic-icon">💊</div><div class="topic-hdr-text"><h3>Health</h3><p>Recreational drugs, substance misuse, effects on the body</p></div></div>
+  <div class="know-grid">
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Effects of recreational drugs</div><div class="kc-body">Drugs alter the way the body and brain work. Categories: stimulants (e.g. caffeine, nicotine — speed up CNS), depressants (e.g. alcohol — slow CNS), hallucinogens (e.g. cannabis — distort perception). All recreational drugs can harm health and behaviour. Many cause addiction.</div></div>
+    <div class="know-card"><span class="kc-tag tag-must">Must know</span><div class="kc-title">Smoking and alcohol</div><div class="kc-body">Smoking: nicotine is addictive; tar causes cancer; carbon monoxide reduces O₂ in blood; damages cilia and alveoli. Alcohol: depresses the nervous system; damages liver (cirrhosis); impairs judgement and reaction time; addictive. Both harm the foetus if used during pregnancy.</div></div>
+    <div class="know-card"><span class="kc-tag tag-should">Should know</span><div class="kc-title">Short and long-term effects</div><div class="kc-body">Short-term: impaired coordination, altered behaviour, euphoria, nausea. Long-term: addiction, organ damage, mental health problems, increased cancer risk, social and financial harm. The earlier drugs are used, the greater the impact on developing brains.</div></div>
+    <div class="know-card"><span class="kc-tag tag-could">Stretch</span><div class="kc-title">Drugs and life processes</div><div class="kc-body">Drugs interfere with: nerve signal transmission (stimulants/depressants), cell respiration (carbon monoxide from smoking competes with O₂), organ function (alcohol and liver enzymes), and reproduction (smoking reduces fertility, affects foetal development).</div></div>
+  </div>
+</div>
+
+</div><!-- end knowledge -->
+
+<!-- TAB 2: SELF SUMMARY -->
+<div class="pane" id="pane-summary">
+<div class="summary-intro">
+  <h2>Self-assessment checklist</h2>
+  <p>Tick each statement when you feel confident. Use this to identify gaps before the practice questions. Aim to tick everything before your GL PTS test.</p>
+</div>
+<div class="cl-progress">
+  <div class="cl-stat"><div class="cl-val" id="cl-done">0</div><div class="cl-lbl">Ticked</div></div>
+  <div class="cl-stat"><div class="cl-val" id="cl-total">0</div><div class="cl-lbl">Total</div></div>
+  <div class="cl-bar-wrap">
+    <div class="cl-bar-label"><span>Confidence</span><span id="cl-pct">0%</span></div>
+    <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:0%"></div></div>
+  </div>
+</div>
+<div id="checklist-container"></div>
+</div>
+
+<!-- TAB 3: QUESTIONS -->
+<div class="pane" id="pane-questions">
+<div class="q-filter">
+  <span class="qfl">Topic:</span>
+  <button class="qpill active" onclick="filterQ('all',this)">All</button>
+  <button class="qpill" onclick="filterQ('cells',this)">Cells</button>
+  <button class="qpill" onclick="filterQ('skeleton',this)">Skeleton</button>
+  <button class="qpill" onclick="filterQ('nutrition',this)">Nutrition</button>
+  <button class="qpill" onclick="filterQ('gas',this)">Gas Exchange</button>
+  <button class="qpill" onclick="filterQ('reproduction',this)">Reproduction</button>
+  <button class="qpill" onclick="filterQ('respiration',this)">Respiration</button>
+  <button class="qpill" onclick="filterQ('ecosystems',this)">Ecosystems</button>
+  <button class="qpill" onclick="filterQ('genetics',this)">Genetics</button>
+  <button class="qpill" onclick="filterQ('health',this)">Health</button>
+  <span class="q-prog-badge" id="q-prog">0 / 50</span>
+</div>
+<div id="questions-container"></div>
+</div>
+
+<!-- TAB 4: SELF MARK -->
+<div class="pane" id="pane-marking">
+<div id="marking-container"></div>
+</div>
+
+<!-- TAB 5: SCORE & REVISE -->
+<div class="pane" id="pane-score">
+<div id="score-container"></div>
+</div>
+
+</div>
+
+<script>
+const TOPICS_Q=[
+  {id:'cells',       label:'Cells & Organisation',      icon:'🔬'},
+  {id:'skeleton',    label:'Skeletal & Muscular Systems',icon:'🦴'},
+  {id:'nutrition',   label:'Nutrition & Digestion',     icon:'🍎'},
+  {id:'gas',         label:'Gas Exchange',              icon:'💨'},
+  {id:'reproduction',label:'Reproduction',              icon:'🌸'},
+  {id:'respiration', label:'Photosynthesis & Respiration',icon:'☀️'},
+  {id:'ecosystems',  label:'Ecosystems & Interdependence',icon:'🌿'},
+  {id:'genetics',    label:'Genetics & Evolution',      icon:'🧬'},
+  {id:'health',      label:'Health',                    icon:'💊'},
+];
+
+const QS=[
+// ── CELLS ──────────────────────────────────────────────────────────
+{id:'B001',topic:'cells',diff:'Foundation',
+ q:'Which organelle controls what enters and leaves the cell?',
+ opts:['Cell wall','Nucleus','Cell membrane','Vacuole'],ans:2,
+ exp:'The cell membrane is selectively permeable — it controls which substances move in and out of the cell.',
+ rev:'Revise: cell organelles and their functions'},
+{id:'B002',topic:'cells',diff:'Foundation',
+ q:'Which of the following is found in plant cells but NOT animal cells?',
+ opts:['Nucleus','Mitochondria','Cell membrane','Chloroplast'],ans:3,
+ exp:'Chloroplasts are only found in plant cells. They contain chlorophyll and are the site of photosynthesis.',
+ rev:'Revise: differences between plant and animal cells'},
+{id:'B003',topic:'cells',diff:'Standard',
+ q:'What is the correct order of biological organisation from smallest to largest?',
+ opts:['Organ → tissue → cell → organism','Cell → tissue → organ → organism','Tissue → cell → organ → system','Organ → cell → tissue → system'],ans:1,
+ exp:'The hierarchy is: cell → tissue → organ → organ system → organism. Each level is made of the level below.',
+ rev:'Revise: levels of organisation in multicellular organisms'},
+{id:'B004',topic:'cells',diff:'Standard',
+ q:'Diffusion is best described as:',
+ opts:['Movement of particles requiring energy','Movement from low to high concentration','Movement from high to low concentration','Movement through a pump'],ans:2,
+ exp:'Diffusion is passive — no energy needed. Particles spread from a region of high concentration to low concentration (down the concentration gradient).',
+ rev:'Revise: diffusion — definition and examples'},
+{id:'B005',topic:'cells',diff:'Standard',
+ q:'Which organelle is the site of aerobic respiration?',
+ opts:['Nucleus','Ribosome','Chloroplast','Mitochondria'],ans:3,
+ exp:'Mitochondria release energy from glucose via aerobic respiration. Cells that need lots of energy (e.g. muscle cells) have many mitochondria.',
+ rev:'Revise: mitochondria and their role in energy release'},
+{id:'B006',topic:'cells',diff:'Stretch',
+ q:'A student observes a cell with no nucleus and a cell wall. What type of cell is this most likely to be?',
+ opts:['Plant cell','Animal cell','Bacterial cell','Fungal cell'],ans:2,
+ exp:'Bacterial cells (prokaryotes) have no nucleus — their DNA floats freely in the cytoplasm. They also have a cell wall but it is not made of cellulose.',
+ rev:'Revise: prokaryotic (bacterial) cells vs eukaryotic cells'},
+
+// ── SKELETON ───────────────────────────────────────────────────────
+{id:'B007',topic:'skeleton',diff:'Foundation',
+ q:'Which of these is NOT a function of the human skeleton?',
+ opts:['Support','Gas exchange','Protection','Movement'],ans:1,
+ exp:'Gas exchange is carried out by the lungs — not the skeleton. The skeleton supports, protects organs, enables movement and produces blood cells.',
+ rev:'Revise: the four functions of the skeleton'},
+{id:'B008',topic:'skeleton',diff:'Standard',
+ q:'When the bicep muscle contracts, what happens to the tricep?',
+ opts:['It also contracts','It relaxes','It stays the same','It grows longer'],ans:1,
+ exp:'Bicep and tricep are antagonistic muscles. When one contracts, the other relaxes. Bicep contraction bends the arm; tricep contraction straightens it.',
+ rev:'Revise: antagonistic muscle pairs — bicep and tricep'},
+{id:'B009',topic:'skeleton',diff:'Standard',
+ q:'Which tissue connects muscle to bone?',
+ opts:['Ligament','Cartilage','Tendon','Synovial fluid'],ans:2,
+ exp:'Tendons connect muscle to bone. Ligaments connect bone to bone. Cartilage cushions joints. Synovial fluid lubricates joints.',
+ rev:'Revise: tendons, ligaments and cartilage — what connects what'},
+{id:'B010',topic:'skeleton',diff:'Stretch',
+ q:'Red blood cells are produced in the:',
+ opts:['Liver','Heart','Red bone marrow','Spleen'],ans:2,
+ exp:'Red blood cells are produced in the red bone marrow found inside certain bones (e.g. pelvis, ribs, sternum). This is one of the key functions of the skeleton.',
+ rev:'Revise: blood cell production as a function of the skeleton'},
+
+// ── NUTRITION ──────────────────────────────────────────────────────
+{id:'B011',topic:'nutrition',diff:'Foundation',
+ q:'Which food group is the body\'s main source of energy?',
+ opts:['Proteins','Lipids','Vitamins','Carbohydrates'],ans:3,
+ exp:'Carbohydrates (sugars and starch) are the body\'s primary energy source, broken down into glucose and used in respiration.',
+ rev:'Revise: food groups and their functions'},
+{id:'B012',topic:'nutrition',diff:'Foundation',
+ q:'Which deficiency disease is caused by a lack of vitamin C?',
+ opts:['Rickets','Anaemia','Scurvy','Kwashiorkor'],ans:2,
+ exp:'Scurvy is caused by vitamin C deficiency — symptoms include bleeding gums and poor wound healing. Rickets results from vitamin D deficiency.',
+ rev:'Revise: vitamin deficiency diseases'},
+{id:'B013',topic:'nutrition',diff:'Standard',
+ q:'Where does most nutrient absorption take place in the digestive system?',
+ opts:['Stomach','Large intestine','Mouth','Small intestine'],ans:3,
+ exp:'The small intestine is lined with villi — finger-like projections that massively increase surface area for absorbing digested nutrients into the blood.',
+ rev:'Revise: the small intestine and villi — nutrient absorption'},
+{id:'B014',topic:'nutrition',diff:'Standard',
+ q:'Enzymes in the digestive system are described as biological catalysts. This means they:',
+ opts:['Are used up during digestion','Are made in the kidneys','Speed up digestion without being used up','Slow down chemical reactions'],ans:2,
+ exp:'Enzymes are biological catalysts — they speed up chemical reactions (like breaking down food molecules) without being consumed in the process.',
+ rev:'Revise: enzymes as biological catalysts in digestion'},
+{id:'B015',topic:'nutrition',diff:'Stretch',
+ q:'A student eats a diet high in calories but low in iron. Which condition might they develop?',
+ opts:['Obesity and scurvy','Obesity and anaemia','Starvation and rickets','Kwashiorkor only'],ans:1,
+ exp:'Excess calorie intake leads to obesity. Iron deficiency leads to anaemia (too few red blood cells, causing fatigue). Both can occur simultaneously.',
+ rev:'Revise: diet imbalances — obesity, anaemia and other deficiency diseases'},
+
+// ── GAS EXCHANGE ───────────────────────────────────────────────────
+{id:'B016',topic:'gas',diff:'Foundation',
+ q:'What happens to the diaphragm when you breathe in?',
+ opts:['It relaxes and moves up','It contracts and moves down','It stays still','It moves sideways'],ans:1,
+ exp:'During inhalation, the diaphragm contracts and flattens (moves down). This increases thoracic volume, decreasing pressure, so air flows in.',
+ rev:'Revise: the mechanism of breathing — diaphragm and intercostal muscles'},
+{id:'B017',topic:'gas',diff:'Standard',
+ q:'Which feature of alveoli makes them efficient at gas exchange?',
+ opts:['Thick walls','Large volume','One cell thick walls and large surface area','Surrounded by bone'],ans:2,
+ exp:'Alveoli are adapted with a very large surface area, thin walls (one cell thick), moist lining and rich capillary blood supply — all maximising diffusion of gases.',
+ rev:'Revise: adaptations of alveoli for gas exchange'},
+{id:'B018',topic:'gas',diff:'Standard',
+ q:'How does smoking damage the gas exchange system?',
+ opts:['It increases the number of alveoli','Tar destroys alveolar walls and cilia are damaged reducing mucus clearance','It speeds up gas exchange','It reduces breathing rate permanently'],ans:1,
+ exp:'Tar from cigarette smoke destroys alveolar walls (reducing surface area — emphysema) and paralyses/destroys cilia, allowing mucus and pathogens to accumulate.',
+ rev:'Revise: effects of smoking on the gas exchange system'},
+{id:'B019',topic:'gas',diff:'Standard',
+ q:'What is the role of stomata in plants?',
+ opts:['To absorb water from the air','To allow gas exchange — CO₂ in for photosynthesis, O₂ out','To transport glucose to roots','To produce chlorophyll'],ans:1,
+ exp:'Stomata are pores mainly on the underside of leaves. They allow CO₂ to diffuse in for photosynthesis and O₂ to diffuse out. Guard cells open and close them.',
+ rev:'Revise: stomata — structure and role in gas exchange'},
+{id:'B020',topic:'gas',diff:'Stretch',
+ q:'During exercise, breathing rate increases. What is the reason for this?',
+ opts:['The body needs to remove heat','Muscles need more O₂ for increased aerobic respiration and CO₂ must be removed faster','Blood pressure drops so breathing compensates','Lungs get larger during exercise'],ans:1,
+ exp:'Increased muscle activity requires more aerobic respiration, using O₂ and producing CO₂ faster. Faster, deeper breathing supplies more O₂ and removes CO₂ more quickly.',
+ rev:'Revise: how and why breathing rate changes during exercise'},
+
+// ── REPRODUCTION ───────────────────────────────────────────────────
+{id:'B021',topic:'reproduction',diff:'Foundation',
+ q:'What is fertilisation?',
+ opts:['The release of an egg from the ovary','The development of a foetus','The fusion of sperm and egg to form a zygote','The implantation of the embryo'],ans:2,
+ exp:'Fertilisation is the fusion of a sperm cell with an egg cell (ovum) to form a zygote, which contains genetic material from both parents.',
+ rev:'Revise: fertilisation and early human development'},
+{id:'B022',topic:'reproduction',diff:'Standard',
+ q:'What is the function of the placenta?',
+ opts:['To produce eggs','To allow exchange of nutrients and gases between mother and foetus','To produce sperm','To store amniotic fluid'],ans:1,
+ exp:'The placenta allows oxygen and nutrients to pass from the mother\'s blood to the foetus. CO₂ and waste products pass back. It also acts as a barrier to some harmful substances.',
+ rev:'Revise: the placenta — structure and function'},
+{id:'B023',topic:'reproduction',diff:'Standard',
+ q:'Which part of a flower produces pollen?',
+ opts:['Stigma','Petal','Ovary','Anther'],ans:3,
+ exp:'The anther is the male reproductive structure of the flower that produces pollen. The stigma is the sticky female structure on which pollen lands during pollination.',
+ rev:'Revise: flower structure — anther, stigma, ovary, petal'},
+{id:'B024',topic:'reproduction',diff:'Standard',
+ q:'How are insect-pollinated flowers adapted to attract insects?',
+ opts:['Small, dull petals and lots of light pollen','Large, colourful petals, strong scent and nectar','No petals and feathery stigmas','Large anthers hanging outside the flower'],ans:1,
+ exp:'Insect-pollinated flowers attract insects with colourful petals, scent, and nectar as a food reward. Pollen sticks to insects and is transferred to another flower.',
+ rev:'Revise: adaptations of insect-pollinated vs wind-pollinated flowers'},
+{id:'B025',topic:'reproduction',diff:'Stretch',
+ q:'How can a mother\'s lifestyle affect foetal development?',
+ opts:['It cannot — the foetus is completely protected','Smoking, alcohol and drugs can pass through the placenta and harm the foetus','Only the father\'s lifestyle matters','The amniotic fluid completely filters all substances'],ans:1,
+ exp:'The placenta allows some substances — including alcohol, nicotine and some drugs — to pass from the mother\'s blood to the foetus. These can cause low birth weight, developmental problems and miscarriage.',
+ rev:'Revise: the effect of maternal lifestyle on the foetus'},
+
+// ── RESPIRATION ────────────────────────────────────────────────────
+{id:'B026',topic:'respiration',diff:'Foundation',
+ q:'What is the word equation for photosynthesis?',
+ opts:['Glucose + oxygen → carbon dioxide + water','Carbon dioxide + water → glucose + oxygen','Oxygen + glucose → water + carbon dioxide','Glucose → lactic acid + energy'],ans:1,
+ exp:'Photosynthesis: carbon dioxide + water → glucose + oxygen. Light energy is needed and the process occurs in chloroplasts.',
+ rev:'Revise: the word equation for photosynthesis'},
+{id:'B027',topic:'respiration',diff:'Foundation',
+ q:'What is the word equation for aerobic respiration?',
+ opts:['Glucose → lactic acid + energy','Carbon dioxide + water → glucose + oxygen','Glucose + oxygen → carbon dioxide + water + energy','Oxygen → carbon dioxide + water'],ans:2,
+ exp:'Aerobic respiration: glucose + oxygen → carbon dioxide + water + energy. This occurs in mitochondria and releases energy for all life processes.',
+ rev:'Revise: the word equation for aerobic respiration'},
+{id:'B028',topic:'respiration',diff:'Standard',
+ q:'Anaerobic respiration in yeast produces:',
+ opts:['Lactic acid and water','Ethanol and carbon dioxide','Carbon dioxide and oxygen','Glucose and water'],ans:1,
+ exp:'Yeast ferments glucose anaerobically: glucose → ethanol + carbon dioxide. This is used in bread baking (CO₂ makes dough rise) and brewing (ethanol).',
+ rev:'Revise: anaerobic respiration in yeast — fermentation'},
+{id:'B029',topic:'respiration',diff:'Standard',
+ q:'Why do leaf adaptations include a broad, flat shape?',
+ opts:['To reduce water loss','To provide a large surface area to absorb maximum light for photosynthesis','To make the leaf heavier','To store more glucose'],ans:1,
+ exp:'A broad, flat leaf maximises the surface area exposed to sunlight, allowing more light energy to be absorbed for photosynthesis.',
+ rev:'Revise: leaf adaptations for photosynthesis'},
+{id:'B030',topic:'respiration',diff:'Stretch',
+ q:'During intense exercise, why do muscles produce lactic acid?',
+ opts:['The body switches to a more efficient process','O₂ cannot be supplied fast enough, so anaerobic respiration occurs producing lactic acid','The mitochondria stop working','Lactic acid is produced by aerobic respiration'],ans:1,
+ exp:'When O₂ demand exceeds supply during intense exercise, muscles switch to anaerobic respiration: glucose → lactic acid + energy. This releases less energy and causes the burning sensation in muscles.',
+ rev:'Revise: anaerobic respiration in humans — lactic acid and muscle fatigue'},
+
+// ── ECOSYSTEMS ─────────────────────────────────────────────────────
+{id:'B031',topic:'ecosystems',diff:'Foundation',
+ q:'In a food chain, what does an arrow represent?',
+ opts:['The direction the organism moves','The transfer of energy from eaten to eater','Competition between species','The size of the population'],ans:1,
+ exp:'Arrows in food chains and food webs represent the flow of energy — from the organism being eaten to the one eating it.',
+ rev:'Revise: food chains and food webs — what arrows show'},
+{id:'B032',topic:'ecosystems',diff:'Standard',
+ q:'If the rabbit population in an ecosystem collapses, what would most likely happen to the fox population?',
+ opts:['Foxes would increase','Foxes would be unaffected','Foxes would decrease','Foxes would eat more plants instead'],ans:2,
+ exp:'Foxes depend on rabbits as a food source. If rabbits decline, foxes have less food and their population also decreases — this demonstrates predator-prey interdependence.',
+ rev:'Revise: interdependence in ecosystems — predator-prey relationships'},
+{id:'B033',topic:'ecosystems',diff:'Standard',
+ q:'Why is biodiversity important for ecosystem stability?',
+ opts:['It increases competition only','More species means more predators','If one species is lost, others can fill its role — making the ecosystem more resilient','Biodiversity makes ecosystems look more attractive'],ans:2,
+ exp:'High biodiversity provides resilience — if one species declines, others can take its role. Low biodiversity makes ecosystems fragile and vulnerable to collapse.',
+ rev:'Revise: biodiversity and ecosystem stability'},
+{id:'B034',topic:'ecosystems',diff:'Stretch',
+ q:'Toxic pesticides sprayed on crops can end up in high concentrations in birds of prey. Why?',
+ opts:['Birds of prey eat the crops directly','Toxins accumulate at each step of the food chain (bioaccumulation) and reach highest concentrations in top predators','Birds of prey have weaker immune systems','The pesticides evaporate and are breathed in by birds'],ans:1,
+ exp:'Bioaccumulation: toxins are not broken down and build up in organisms. Each predator eats many prey organisms, concentrating the toxin. Top predators accumulate the highest doses.',
+ rev:'Revise: bioaccumulation of toxins through food chains'},
+{id:'B035',topic:'ecosystems',diff:'Standard',
+ q:'Why is insect pollination important for human food security?',
+ opts:['Insects eat pests that damage crops','Many food crops depend on insects to transfer pollen for fertilisation and fruit production','Insects add nutrients to the soil','Insects control water levels in farmland'],ans:1,
+ exp:'Many fruits, vegetables and nuts rely on insect pollination to produce seeds and fruit. Declining insect populations (especially bees) directly threaten food production worldwide.',
+ rev:'Revise: the importance of insect pollination for food security'},
+
+// ── GENETICS ───────────────────────────────────────────────────────
+{id:'B036',topic:'genetics',diff:'Foundation',
+ q:'Where is DNA found in a cell?',
+ opts:['Mitochondria only','Cell membrane','Nucleus','Cytoplasm only'],ans:2,
+ exp:'DNA is found in the nucleus of eukaryotic cells, wound tightly into chromosomes. (Small amounts are also found in mitochondria and chloroplasts.)',
+ rev:'Revise: location of DNA in the cell'},
+{id:'B037',topic:'genetics',diff:'Standard',
+ q:'What is the difference between continuous and discontinuous variation?',
+ opts:['Continuous has categories; discontinuous has a range','Continuous shows a range of values; discontinuous has distinct categories','They are the same thing','Continuous variation is only caused by genes'],ans:1,
+ exp:'Continuous variation: range of values, no clear categories (e.g. height). Discontinuous: distinct categories only (e.g. blood group A, B, AB or O). Continuous variation is shown as a bell curve.',
+ rev:'Revise: continuous vs discontinuous variation with examples'},
+{id:'B038',topic:'genetics',diff:'Standard',
+ q:'Which of the following best describes natural selection?',
+ opts:['Organisms choose the best traits to pass on','Individuals with advantageous variations survive, reproduce and pass on those traits','All members of a species evolve at the same rate','Variation is eliminated over time'],ans:1,
+ exp:'Natural selection: variation exists → those better adapted survive → they reproduce and pass on advantageous traits → over generations the species changes (evolution).',
+ rev:'Revise: the mechanism of natural selection — 4 steps'},
+{id:'B039',topic:'genetics',diff:'Standard',
+ q:'What could cause a species to become extinct?',
+ opts:['Stable environment and plentiful food','Environmental change that reduces ability to compete and reproduce','Increase in biodiversity','The species reproducing too quickly'],ans:1,
+ exp:'Extinction occurs when no individuals remain to reproduce. Causes include: habitat loss, climate change, disease, invasive competitors, or hunting.',
+ rev:'Revise: causes of extinction and the role of environmental change'},
+{id:'B040',topic:'genetics',diff:'Stretch',
+ q:'Watson, Crick, Wilkins and Franklin are associated with the discovery of:',
+ opts:['Natural selection','The structure of chromosomes','The double helix structure of DNA','The function of mitochondria'],ans:2,
+ exp:'In 1953, Watson and Crick built the double helix model of DNA, using X-ray diffraction data from Franklin and Wilkins. This was one of the most significant scientific discoveries of the 20th century.',
+ rev:'Revise: the discovery of the double helix structure of DNA'},
+
+// ── HEALTH ─────────────────────────────────────────────────────────
+{id:'B041',topic:'health',diff:'Foundation',
+ q:'Which substance in cigarette smoke is addictive?',
+ opts:['Carbon monoxide','Tar','Nicotine','Oxygen'],ans:2,
+ exp:'Nicotine is the addictive substance in cigarette smoke. Tar causes cancer. Carbon monoxide reduces the oxygen-carrying capacity of blood.',
+ rev:'Revise: components of cigarette smoke and their effects'},
+{id:'B042',topic:'health',diff:'Foundation',
+ q:'Alcohol is described as a depressant. What does this mean?',
+ opts:['It makes people feel sad','It slows down the central nervous system','It speeds up reactions','It causes hallucinations'],ans:1,
+ exp:'A depressant slows down the central nervous system — reducing reaction time, impairing judgement, and affecting coordination. It is not the same as making someone feel depressed.',
+ rev:'Revise: types of recreational drugs — stimulants, depressants, hallucinogens'},
+{id:'B043',topic:'health',diff:'Standard',
+ q:'How does carbon monoxide in cigarette smoke harm the body?',
+ opts:['It destroys alveoli','It makes blood more alkaline','It binds to haemoglobin reducing oxygen transport','It paralyses muscles'],ans:2,
+ exp:'Carbon monoxide binds irreversibly to haemoglobin (forming carboxyhaemoglobin), reducing the blood\'s ability to carry oxygen. This makes smokers feel tired and breathless.',
+ rev:'Revise: effects of carbon monoxide on oxygen transport in blood'},
+{id:'B044',topic:'health',diff:'Standard',
+ q:'Why is drug use during pregnancy particularly harmful?',
+ opts:['It increases the mother\'s heart rate only','Drugs can cross the placenta and affect the developing foetus','The foetus is completely protected by amniotic fluid','Only illegal drugs are harmful in pregnancy'],ans:1,
+ exp:'Many drugs — including alcohol, nicotine, cannabis and others — can cross the placenta. They may cause premature birth, low birth weight, developmental problems, or addiction in the newborn.',
+ rev:'Revise: drug use in pregnancy and effects on the foetus'},
+{id:'B045',topic:'health',diff:'Stretch',
+ q:'Long-term alcohol use damages which organ most severely?',
+ opts:['Lungs','Kidney','Brain only','Liver'],ans:3,
+ exp:'The liver breaks down alcohol. Chronic alcohol use causes liver inflammation (hepatitis), scarring (fibrosis) and ultimately cirrhosis — where liver tissue is permanently replaced by scar tissue and the liver fails.',
+ rev:'Revise: long-term effects of alcohol — liver damage and cirrhosis'},
+
+// BONUS 5 to reach 50
+{id:'B046',topic:'cells',diff:'Standard',
+ q:'What is the function of the vacuole in a plant cell?',
+ opts:['Produces energy','Site of photosynthesis','Stores water and maintains cell shape and rigidity','Controls what enters the cell'],ans:2,
+ exp:'The large central vacuole in plant cells is filled with cell sap. It stores water and helps maintain the cell\'s rigidity (turgidity), which provides support to plant tissues.',
+ rev:'Revise: the vacuole — function in plant cells'},
+{id:'B047',topic:'nutrition',diff:'Standard',
+ q:'Which enzyme breaks down starch and where does digestion of starch begin?',
+ opts:['Protease in the stomach','Lipase in the small intestine','Amylase in the mouth','Amylase in the large intestine'],ans:2,
+ exp:'Amylase is produced in salivary glands and secreted into the mouth. It begins breaking starch into maltose (a simpler sugar) as soon as food enters the mouth.',
+ rev:'Revise: amylase and the start of starch digestion in the mouth'},
+{id:'B048',topic:'genetics',diff:'Standard',
+ q:'What is a gene?',
+ opts:['The entire chromosome','A section of DNA that codes for a specific protein or characteristic','A type of cell organelle','The process of copying DNA'],ans:1,
+ exp:'A gene is a specific section of DNA that provides the code (instructions) for making a particular protein, which determines a characteristic of the organism.',
+ rev:'Revise: genes, chromosomes and DNA — the relationship between them'},
+{id:'B049',topic:'ecosystems',diff:'Foundation',
+ q:'Which organism in a food chain is always a producer?',
+ opts:['Fox','Rabbit','Grass','Hawk'],ans:2,
+ exp:'Producers make their own food by photosynthesis. Grass (and other plants/algae) are producers. Foxes, rabbits and hawks are all consumers.',
+ rev:'Revise: producers and consumers in food chains'},
+{id:'B050',topic:'respiration',diff:'Standard',
+ q:'Why do cells with high energy demands (like muscle cells) contain many mitochondria?',
+ opts:['To store more glucose','Because mitochondria are the site of aerobic respiration — more mitochondria means more energy can be released','Mitochondria produce oxygen','To allow faster diffusion'],ans:1,
+ exp:'Mitochondria carry out aerobic respiration to release energy (ATP). Muscle cells need large amounts of energy for contraction, so they have many mitochondria to meet this demand.',
+ rev:'Revise: mitochondria as the site of aerobic respiration — why active cells have more'},
+];
+
+const CHECKLIST=[
+  {topic:'Cells & Organisation',icon:'🔬',items:[
+    'I can name and describe the function of each organelle: nucleus, cell membrane, cytoplasm, mitochondria, chloroplast, cell wall, vacuole',
+    'I can identify the differences between plant and animal cells',
+    'I can describe the levels of organisation: cell → tissue → organ → system → organism',
+    'I can explain diffusion as passive movement from high to low concentration',
+    'I know that bacterial cells are prokaryotic — they have no nucleus',
+  ]},
+  {topic:'Skeletal & Muscular Systems',icon:'🦴',items:[
+    'I can state the four functions of the skeleton: support, protection, movement, blood cell production',
+    'I can explain how antagonistic muscles work using bicep and tricep as an example',
+    'I know that tendons connect muscle to bone and ligaments connect bone to bone',
+    'I can explain where red blood cells are produced',
+  ]},
+  {topic:'Nutrition & Digestion',icon:'🍎',items:[
+    'I can name all seven food groups and explain the role of each',
+    'I can trace the journey of food through the digestive system',
+    'I know that enzymes are biological catalysts and can name amylase, protease and lipase',
+    'I can describe the adaptations of villi for nutrient absorption',
+    'I can describe deficiency diseases: scurvy, rickets, anaemia, kwashiorkor',
+    'I understand what obesity and starvation are and their causes',
+  ]},
+  {topic:'Gas Exchange',icon:'💨',items:[
+    'I can describe the mechanism of breathing (diaphragm, intercostal muscles)',
+    'I can describe the adaptations of alveoli for gas exchange',
+    'I know the effects of smoking on the gas exchange system',
+    'I know the effects of asthma on breathing',
+    'I can explain the role of stomata in plant gas exchange',
+  ]},
+  {topic:'Reproduction',icon:'🌸',items:[
+    'I can describe the structure of male and female reproductive systems',
+    'I can outline the menstrual cycle (approximately 28 days)',
+    'I know the sequence: fertilisation → embryo → foetus → birth',
+    'I can describe the function of the placenta',
+    'I can explain the difference between wind and insect pollination',
+    'I can name methods of seed dispersal',
+  ]},
+  {topic:'Photosynthesis & Respiration',icon:'☀️',items:[
+    'I can write the word equation for photosynthesis',
+    'I can write the word equation for aerobic respiration',
+    'I can write the word equation for anaerobic respiration in humans and in yeast',
+    'I can compare aerobic and anaerobic respiration (reactants, products, energy released)',
+    'I can describe leaf adaptations for photosynthesis',
+  ]},
+  {topic:'Ecosystems & Interdependence',icon:'🌿',items:[
+    'I can construct and interpret food webs',
+    'I can explain predator-prey relationships and interdependence',
+    'I can explain why biodiversity is important for ecosystem stability',
+    'I can describe bioaccumulation of toxins through food chains',
+    'I understand why insect pollination is important for human food security',
+  ]},
+  {topic:'Genetics & Evolution',icon:'🧬',items:[
+    'I know that DNA is in the nucleus, organised into chromosomes, and sections are called genes',
+    'I can distinguish continuous from discontinuous variation with examples',
+    'I can describe the four steps of natural selection',
+    'I can explain what causes extinction',
+    'I know the contribution of Watson, Crick, Wilkins and Franklin',
+  ]},
+  {topic:'Health',icon:'💊',items:[
+    'I can explain the effects of nicotine, tar and carbon monoxide from smoking',
+    'I can classify drugs as stimulants, depressants or hallucinogens',
+    'I can describe the long-term effects of alcohol on the liver',
+    'I can explain why drug use during pregnancy is harmful',
+  ]},
+];
+
+const answers={};const checked={};
+
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pane-'+tab).classList.add('active');
+  if(tab==='marking')renderMarking();
+  if(tab==='score')renderScore();
+  window.scrollTo(0,0);
+}
+
+function renderChecklist(){
+  let total=0,html='';
+  CHECKLIST.forEach((g,gi)=>{
+    html+=`<div class="cl-group"><div class="cl-topic-hdr">${g.icon} ${g.topic}</div>`;
+    g.items.forEach((item,ii)=>{
+      const key=`${gi}-${ii}`;total++;
+      html+=`<div class="cl-item${checked[key]?' ck':''}" onclick="toggleCheck('${key}')">
+        <div class="cl-box"><span class="cl-tick">✓</span></div>
+        <div class="cl-text">${item}</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  document.getElementById('checklist-container').innerHTML=html;
+  document.getElementById('cl-total').textContent=total;
+  updateCl();
+}
+
+function toggleCheck(key){
+  checked[key]=!checked[key];
+  const el=document.querySelector(`[onclick="toggleCheck('${key}')"]`);
+  if(el)el.classList.toggle('ck',!!checked[key]);
+  updateCl();
+}
+
+function updateCl(){
+  const total=CHECKLIST.reduce((s,g)=>s+g.items.length,0);
+  const done=Object.values(checked).filter(Boolean).length;
+  const pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('cl-done').textContent=done;
+  document.getElementById('cl-pct').textContent=pct+'%';
+  document.getElementById('cl-fill').style.width=pct+'%';
+  document.getElementById('cl-badge').textContent=pct+'%';
+}
+
+function renderQuestions(){
+  let html='';
+  TOPICS_Q.forEach(t=>{
+    const tQs=QS.filter(q=>q.topic===t.id);
+    html+=`<div class="qtopic-grp" data-qt="${t.id}">
+      <div class="qtopic-hdr">${t.icon} ${t.label} — ${tQs.length} questions</div>`;
+    tQs.forEach(q=>{
+      const dc=q.diff==='Foundation'?'df':q.diff==='Stretch'?'dx':'ds';
+      html+=`<div class="q-card" id="qc-${q.id}">
+        <div class="q-top"><div class="q-id">${q.id}</div>
+        <div class="q-body"><span class="dbadge ${dc}">${q.diff}</span>
+        <div class="q-text">${q.q}</div><div class="opts">`;
+      q.opts.forEach((o,oi)=>{
+        const sel=answers[q.id]===oi?' sel':'';
+        html+=`<button class="opt${sel}" onclick="pick('${q.id}',${oi})">
+          <span class="ol">${'ABCD'[oi]}</span>${o}</button>`;
+      });
+      html+=`</div></div></div></div>`;
+    });
+    html+=`</div>`;
+  });
+  document.getElementById('questions-container').innerHTML=html;
+  updateQProg();
+}
+
+function filterQ(topic,btn){
+  document.querySelectorAll('.qpill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.qtopic-grp').forEach(g=>{
+    g.style.display=(topic==='all'||g.dataset.qt===topic)?'block':'none';
+  });
+}
+
+function pick(qid,chosen){
+  answers[qid]=chosen;
+  const card=document.getElementById('qc-'+qid);
+  if(card)card.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('sel',i===chosen));
+  updateQProg();
+}
+
+function updateQProg(){
+  const done=Object.keys(answers).length;
+  document.getElementById('q-prog').textContent=`${done} / ${QS.length}`;
+  document.getElementById('prog-badge').textContent=`${done} / ${QS.length} answered`;
+  document.getElementById('mk-badge').textContent=done;
+}
+
+function renderMarking(){
+  let html='';
+  TOPICS_Q.forEach(t=>{
+    const tQs=QS.filter(q=>q.topic===t.id);
+    html+=`<div style="margin-bottom:28px"><div class="qtopic-hdr">${t.icon} ${t.label}</div>`;
+    tQs.forEach(q=>{
+      const chosen=answers[q.id];
+      const isSkip=chosen===undefined;
+      const isOk=chosen===q.ans;
+      const dc=q.diff==='Foundation'?'df':q.diff==='Stretch'?'dx':'ds';
+      const cc=isSkip?'mk-sk':isOk?'mk-ok':'mk-no';
+      html+=`<div class="q-card ${cc}">
+        <div class="q-top"><div class="q-id">${q.id}</div>
+        <div class="q-body"><span class="dbadge ${dc}">${q.diff}</span>
+        <div class="q-text">${q.q}</div><div class="opts" style="gap:6px">`;
+      q.opts.forEach((o,oi)=>{
+        const isAns=oi===q.ans,wasCh=oi===chosen;
+        let cls='opt-m',suf='';
+        if(isAns){cls+=' mc';suf=`<span class="osuf sc">✓ Correct</span>`;}
+        if(wasCh&&!isAns){cls+=' mw';suf=`<span class="osuf sw">✗ Yours</span>`;}
+        html+=`<div class="${cls}"><span class="ol">${'ABCD'[oi]}</span>${o}${suf}</div>`;
+      });
+      html+=`</div>`;
+      if(isSkip)html+=`<div class="skip-box">⚠️ Not answered — correct: <strong>${q.opts[q.ans]}</strong></div>`;
+      html+=`<div class="exp-box"><div class="exp-lbl">Explanation</div>${q.exp}</div>`;
+      if(!isOk)html+=`<div class="rev-box">📖 ${q.rev}</div>`;
+      html+=`</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`<div class="btn-row">
+    <button class="btn btn-green" onclick="goTab('score')">View Score &amp; Revise →</button>
+    <button class="btn btn-ghost" onclick="resetAll()">Reset all</button>
+  </div>`;
+  document.getElementById('marking-container').innerHTML=html;
+}
+
+function renderScore(){
+  const total=QS.length;
+  const correct=QS.filter(q=>answers[q.id]===q.ans).length;
+  const wrong=QS.filter(q=>answers[q.id]!==undefined&&answers[q.id]!==q.ans).length;
+  const skipped=total-Object.keys(answers).length;
+  const pct=Math.round(correct/total*100);
+  const band=pct>=80?{l:'High',bg:'#22C55E',msg:'Excellent — strong command of KS3 Biology. Focus on stretch questions and applying knowledge to unfamiliar contexts.'}
+           :pct>=65?{l:'Secure',bg:'#3B82F6',msg:'Good work — secure on most topics. Review red areas in the breakdown and re-read notes on any incorrect questions.'}
+           :pct>=50?{l:'Developing',bg:'#F59E0B',msg:'Making progress — several topics need attention. Work through the revision list and retry weak topics in the practice tab.'}
+           :        {l:'Foundation',bg:'#F43F5E',msg:'Significant revision needed. Start with the Knowledge tab, tick the checklist, then retry questions topic by topic.'};
+
+  const ts={};
+  TOPICS_Q.forEach(t=>{ts[t.id]={label:t.label,icon:t.icon,total:0,correct:0};});
+  QS.forEach(q=>{
+    ts[q.topic].total++;
+    if(answers[q.id]===q.ans)ts[q.topic].correct++;
+  });
+  const wrongQs=QS.filter(q=>answers[q.id]!==undefined&&answers[q.id]!==q.ans);
+  const revNotes=[...new Set(wrongQs.map(q=>q.rev))];
+  const byTopic={};
+  wrongQs.forEach(q=>{
+    if(!byTopic[q.topic])byTopic[q.topic]={icon:ts[q.topic].icon,label:ts[q.topic].label,qs:[]};
+    byTopic[q.topic].qs.push(q);
+  });
+
+  let html=`
+  <div class="score-hero">
+    <div class="score-ring">
+      <div class="score-pct">${pct}%</div>
+      <div class="score-lbl">Score</div>
+    </div>
+    <span class="score-band" style="background:${band.bg};color:${pct>=65?'#fff':'#fff'}">${band.l}</span>
+    <div class="score-msg">${band.msg}</div>
+  </div>
+  <div class="score-grid">
+    <div class="score-stat"><div class="ssval" style="color:var(--green)">${correct}</div><div class="sslbl">Correct</div></div>
+    <div class="score-stat"><div class="ssval" style="color:var(--red)">${wrong}</div><div class="sslbl">Incorrect</div></div>
+    <div class="score-stat"><div class="ssval" style="color:var(--amber)">${skipped}</div><div class="sslbl">Skipped</div></div>
+    <div class="score-stat"><div class="ssval" style="color:var(--green)">${correct}/${total}</div><div class="sslbl">Total</div></div>
+  </div>`;
+
+  html+=`<div class="bc-card"><div class="bc-title">📊 Topic breakdown</div>`;
+  Object.values(ts).forEach(t=>{
+    if(!t.total)return;
+    const p=Math.round(t.correct/t.total*100);
+    const dot=p>=75?'rg':p>=50?'ra':'rr';
+    const bc=p>=75?'var(--green)':p>=50?'var(--amber)':'var(--red)';
+    html+=`<div class="rag-row">
+      <div class="rdot ${dot}"></div>
+      <span class="rname">${t.icon} ${t.label}</span>
+      <div class="rbar"><div class="rbarfill" style="width:${p}%;background:${bc}"></div></div>
+      <span class="rscore">${t.correct}/${t.total} · ${p}%</span>
+    </div>`;
+  });
+  html+=`</div>`;
+
+  if(revNotes.length){
+    html+=`<div class="rev-card"><div class="rv-title">🔴 Priority revision — ${revNotes.length} area${revNotes.length>1?'s':''}</div>`;
+    revNotes.forEach(r=>html+=`<div class="rv-item"><span class="rv-arr">→</span>${r}</div>`);
+    html+=`</div>`;
+  }
+
+  if(Object.keys(byTopic).length){
+    html+=`<div class="pts-card"><div class="pts-title">📖 Points to revise — question by question</div>`;
+    Object.values(byTopic).forEach(t=>{
+      html+=`<div style="font-size:12px;font-weight:700;color:var(--amber);margin:10px 0 6px;font-family:'IBM Plex Mono',monospace">${t.icon} ${t.label}</div>`;
+      t.qs.forEach((q,i)=>{
+        html+=`<div class="pt-item"><span class="pt-bul">${i+1}</span>
+          <div><div style="font-size:12px;opacity:.7;margin-bottom:3px">${q.q}</div>
+          <div style="font-size:11px;color:var(--green)">Correct: ${q.opts[q.ans]}</div>
+          <div style="font-size:11px;margin-top:2px">${q.rev}</div></div></div>`;
+      });
+    });
+    html+=`</div>`;
+  }
+
+  html+=`<div class="btn-row">
+    <button class="btn btn-green" onclick="goTab('questions')">← Retry questions</button>
+    <button class="btn btn-ghost" onclick="resetAll()">Reset everything</button>
+  </div>`;
+  document.getElementById('score-container').innerHTML=html;
+  document.getElementById('sc-badge').textContent=pct+'%';
+}
+
+function goTab(tab){
+  const map={knowledge:0,summary:1,questions:2,marking:3,score:4};
+  const btn=document.querySelectorAll('.tab')[map[tab]];
+  if(btn)switchTab(tab,btn);
+}
+
+function resetAll(){
+  if(!confirm('Reset all answers and checklist?'))return;
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  Object.keys(checked).forEach(k=>delete checked[k]);
+  renderQuestions();renderChecklist();goTab('questions');
+}
+
+renderChecklist();
+renderQuestions();
+</script>
+</body>
+</html>
